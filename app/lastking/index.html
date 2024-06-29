@@ -9,8 +9,9 @@
 		<meta name="description" content="S315, SWAP315, The swap 315 Dual Pump Protocol is a new protocol that supports both 314 contract transfer transactions and swap transactions. The swap 315 Dual Pump Protocol effectively solves the risk of contract code corruption and also addresses the risk of swap pool">
 		<meta name="keywords" content="S315, SWAP315, s315protocol">
 	
-		<link rel="stylesheet" href="./css/index.css" >
-		<link rel="stylesheet" href="./js/toast/jquery.toast.min.css" >
+		
+		
+		
 		<script src="js/jquery.js"></script>
 		<script src="js/jquery.loading.min.js"></script>
 		<script src="js/toast/jquery.toast.min.js"></script>
@@ -21,132 +22,11 @@
 		<script src="js/game.js"></script>
 		
 		<style>
-			.startBtn {
-				margin: 50px auto 0px auto;
-				width: 200px;
-				/* border: 1px solid #f06116; */
-				/* color: #f06116; */
-				padding: 15px 10px;
-				border-radius: 5px;
-				background: #f06116;
-				color: #fff;
-				cursor: pointer;
-			}
 			
-			.gamebox {
-				position: absolute;
-				left: 0;
-				top: 0;
-				right: 0;
-				bottom: 0;
-				z-index: 999;
-				background: rgba(0,0,0,0.5);
-				padding: 50px;
-				box-sizing: border-box;
-				display: none;
-				justify-content: space-between;
-				/* display: none; */
-			}
-			.gamebox .content {
-				position: absolute;
-				top: 40px;
-				bottom: 40px;
-				left: 10%;
-				right: 10%;
-				box-sizing: border-box;
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: space-between;
-				padding: 20px;
-				border-radius: 10px;
-				background: rgba(37,37,37,0.8);
-				/* max-height: 80%; */
-				overflow: scroll;
-			}
-			.gamebox .content .left-box {flex:1;padding: 10px;box-sizing: border-box;}
-			.gamebox .content .left-box .pool .item {display: flex; align-items: baseline;margin-top: 15px;flex-wrap: wrap;}
-			.gamebox .content .left-box .pool .item:first-child{margin-top: 0px;}
-			.gamebox .content .left-box .pool .label {width: 150px;margin-right: 10px; text-align: left;}
-			.gamebox .content .left-box .pool .amount .value {font-size: 55px; line-height: 60px; font-weight: 700;color: #f06116;}
-			.gamebox .content .left-box .pool .time .value {font-size: 25px; color: #f06116;}
-			.gamebox .content .left-box .button-box {display: flex; flex-wrap: wrap;}
-			.gamebox .content .left-box .send-btn {
-				background: #f06116;
-				width: 200px;
-				text-align: center;
-				padding: 10px;
-				border-radius: 10px;
-				font-size: 30px;
-				line-height: 50px;
-				margin-top: 15px;
-				margin-bottom: 15px;
-				margin-right: 10px;
-				cursor: pointer;
-			}
-			.gamebox .content .left-box .approve-btn {
-				background: #f06116;
-				width: 200px;
-				text-align: center;
-				padding: 10px;
-				border-radius: 10px;
-				font-size: 30px;
-				line-height: 50px;
-				margin-top: 15px;
-				margin-bottom: 15px;
-				cursor: pointer;
-			}
-			.gamebox .content .left-box .disable-btn {background: #9d9d9d;}
-			.gamebox .content .left-box .describe {}
-			.gamebox .content .right-box {
-				width: 300px;
-				border: 1px solid #ddd;
-				padding: 10px;
-				border-radius: 5px;
-				display: flex;
-				flex-direction: column;
-				min-height: 300px;
-			}
-			
-			.gamebox .content .right-box .line {background: #ddd; height: 1px; margin: 5px 0px;}
-			.gamebox .content .right-box .order-box  {flex:1; display: flex; flex-direction: column; overflow: scroll;}
-			.gamebox .content .right-box .winner-box {flex:1;display: flex; flex-direction: column; overflow: scroll;}
-			.gamebox .content .right-box .list {overflow: scroll;}
-			.gamebox .content .right-box .list .row {display: flex;}
-			.gamebox .content .right-box .list .row .item {flex:1;}
-			.gamebox .content .right-box .list .row .item.user {text-align: left; flex:none; width: 100px;}
-			.gamebox .content .right-box .list .row .item.block {text-align: center; flex:none; width: 80px;}
-			.gamebox .content .right-box .list .row .item.amount {text-align: right;}
-			
-			@media (max-width: 800px) {
-				
-				.gamebox .content {
-					top:0px;
-					left:0px;
-					right: 0px;
-					bottom: 0px;
-					border-radius: 0px;
-				}
-				
-				.gamebox .content .right-box {
-					margin-top: 10px;
-					width: 100%;
-				}
-				
-			}
-			
-			@media (max-width: 500px) {
-				
-				.gamebox .content .left-box .send-btn {
-					margin-bottom: 0px;
-				}
-				
-			}
-			
-			.loading-overlay.loading-theme-light{
-			    background-color: #000000;
-			    color: #fff;
-			}
 		</style>
+		
+		<link rel="stylesheet" href="./js/toast/jquery.toast.min.css" >
+		<link rel="stylesheet" href="./css/index.css" >
 		
 	</head>
 	<body>
