@@ -15,7 +15,8 @@ window.game = {
 			return;
 		}
 		
-		if(typeof(web3) == "undefined") {
+		// alert(typeof(ethereum));
+		if(typeof(ethereum) == "undefined") {
 			setTimeout(()=>{
 				this.connect(callback);
 			}, 100);
@@ -23,7 +24,7 @@ window.game = {
 		}
 		
 		if(typeof(this.metaMask) == "undefined") {
-			this.metaMask = new Web3(web3.currentProvider);
+			this.metaMask = new Web3(ethereum);
 			this.metaMask.utils.hexToNumber = function(number) {
 				if(number == undefined) {
 					return 0x00;
@@ -33,7 +34,7 @@ window.game = {
 			this.BN = this.metaMask.utils.BN;
 		}
 		
-		web3.currentProvider.enable().then(function(address) {
+		ethereum.enable().then(function(address) {
 			window.game.userAddress = address[0];
 			callback && callback(window.game.userAddress);
 		}).catch(function() {
@@ -101,14 +102,5 @@ window.game = {
 		gameParameter.winnerHistory = await lastking.methods.getWinnerHistory().call();
 		
 		return gameParameter;
-	},
-	// async allowance() {
-	// 	var token = new this.metaMask.eth.Contract(erc20_abi, this.tokenAddress);
-	// 	var allowance = new this.BN(await token.methods.allowance(this.userAddress, this.gameAddress).call());
-	// 	var balance = new this.BN(await token.methods.balanceOf(this.userAddress).call());
-	// 	return {
-	// 		allowance:allowance, 
-	// 		balance:balance,
-	// 	};
-	// }
+	}
 }
