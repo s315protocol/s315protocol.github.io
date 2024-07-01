@@ -3,9 +3,9 @@ window.game = {
 	browser:"https://bscscan.com",
 	// provider:"https://bsc-dataseed1.binance.org",
 	userAddress:false,
-	tokenAddress:"0xE3762BE69030CC0E96B9388F5AB696dc2eE99fbe",
+	tokenAddress:"0x565D40e2ef60f0B4e5bD0136Bb2C58ACe83fDaA5",
 	tokenDecimals:18,
-	gameAddress:"0xc1229C30e2D2BcEa3138b624daF9d0cfC34b31E5",
+	gameAddress:"0x32f4C5403C48589Ca2e35CD27308cfb9bdcc20a8",
 	currentBlock:0,
 	connect(callback) {
 		
@@ -15,7 +15,7 @@ window.game = {
 			return;
 		}
 		
-		// alert(typeof(ethereum));
+		// alert(typeof(web3));
 		if(typeof(ethereum) == "undefined") {
 			setTimeout(()=>{
 				this.connect(callback);
