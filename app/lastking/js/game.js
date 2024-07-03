@@ -40,17 +40,15 @@ window.game = {
 				return this.toBN(number).toString(10);
 			}
 			this.BN = this.metaMask.utils.BN;
-			
-			this.metaMask.eth.getChainId().then((chainId)=>{
-				window.game.chainId = chainId;
-			});
-
 		}
 		
 		provider.enable().then(function(address) {
-			window.game.userAddress = window.game.metaMask.utils.toChecksumAddress(address[0]);
-			callback && callback(window.game.userAddress);
-		}).catch(function() {
+			window.game.metaMask.eth.getChainId().then((chainId)=>{
+				window.game.chainId = chainId;
+				window.game.userAddress = window.game.metaMask.utils.toChecksumAddress(address[0]);
+				callback && callback(window.game.userAddress);
+			});
+		}).catch(function(err) {
 			window.game.userAddress = false;
 			callback && callback(window.game.userAddress);
 		});
