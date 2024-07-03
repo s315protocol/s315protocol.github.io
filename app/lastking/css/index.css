@@ -217,7 +217,7 @@ a {color: #ffffff; text-decoration: none;}
 	overflow: scroll;
 }
 .gamebox .content .left-box {flex:1;padding: 10px;box-sizing: border-box;}
-.gamebox .content .left-box .pool .item {display: flex; align-items: baseline;margin-top: 10px;flex-wrap: wrap;}
+.gamebox .content .left-box .pool .item {display: flex; align-items: baseline;margin-top:5px;flex-wrap: wrap;}
 .gamebox .content .left-box .pool .item:first-child{margin-top: 0px;}
 .gamebox .content .left-box .pool .label {width: 150px;margin-right: 10px; text-align: left; align-items: center; display: flex;}
 .gamebox .content .left-box .pool .label .icon {width: 20px; margin-left: 5px;}
