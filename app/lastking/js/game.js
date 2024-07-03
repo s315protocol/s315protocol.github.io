@@ -2,10 +2,11 @@ window.game = {
 	checkAccount:0,
 	browser:"https://bscscan.com",
 	// provider:"https://bsc-dataseed1.binance.org",
+	chainId:0,
 	userAddress:false,
 	tokenAddress:"0x565D40e2ef60f0B4e5bD0136Bb2C58ACe83fDaA5",
 	tokenDecimals:18,
-	gameAddress:"0xBeEd90071cECA26d70C5C9698d76a718e48b5D3B",
+	gameAddress:"0xBD6953119cD9e945b7942eCD73104dEE615BD251",
 	currentBlock:0,
 	connect(callback) {
 		
@@ -16,15 +17,22 @@ window.game = {
 		}
 		
 		// alert(typeof(web3));
-		if(typeof(ethereum) == "undefined") {
+		if(typeof(ethereum) == "undefined" && typeof(web3) == "undefined") {
 			setTimeout(()=>{
 				this.connect(callback);
 			}, 100);
 			return;
 		}
 		
+		var provider = null;
+		if(typeof(ethereum) != "undefined") {
+			provider = ethereum;
+		} else if(typeof(web3) != "undefined") {
+			provider = web3.currentProvider;
+		}
+		
 		if(typeof(this.metaMask) == "undefined") {
-			this.metaMask = new Web3(ethereum);
+			this.metaMask = new Web3(provider);
 			this.metaMask.utils.hexToNumber = function(number) {
 				if(number == undefined) {
 					return 0x00;
@@ -32,10 +40,15 @@ window.game = {
 				return this.toBN(number).toString(10);
 			}
 			this.BN = this.metaMask.utils.BN;
+			
+			this.metaMask.eth.getChainId().then((chainId)=>{
+				window.game.chainId = chainId;
+			});
+
 		}
 		
-		ethereum.enable().then(function(address) {
-			window.game.userAddress = address[0];
+		provider.enable().then(function(address) {
+			window.game.userAddress = window.game.metaMask.utils.toChecksumAddress(address[0]);
 			callback && callback(window.game.userAddress);
 		}).catch(function() {
 			window.game.userAddress = false;
@@ -43,17 +56,45 @@ window.game = {
 		});
 		
 	},
-	send() {
+	send(success, error) {
 		var lastking = new this.metaMask.eth.Contract(lastking_abi, this.gameAddress);
-		return lastking.methods.launch().send({from:this.userAddress});
+		lastking.methods.launch().send({from:this.userAddress})
+		.on('receipt', function(receipt) {
+			success(receipt);
+		})
+		.catch(function(err) {
+			error(err);
+		});
 	},
-	approve() {
+	sign(success, error) {
+		var lastking = new this.metaMask.eth.Contract(lastking_abi, this.gameAddress);
+		lastking.methods.sign().send({from:this.userAddress})
+		.on('receipt', function(receipt) {
+			success(receipt);
+		})
+		.catch(function(err) {
+			error(err);
+		});
+	},
+	async approve(success, error) {
+		var gameAccount = await this.gameAccount();
 		var token = new this.metaMask.eth.Contract(erc20_abi, this.tokenAddress);
-		return token.methods.approve(this.gameAddress, "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF").send({from:this.userAddress});
+		token.methods.approve(gameAccount, "0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF").send({from:this.userAddress})
+		.on('receipt', function(receipt) {
+			success(receipt);
+		})
+		.catch(function(err) {
+			error(err);
+		});;
 	},
 	async allowance() {
+	
+		var gameAccount = await this.gameAccount();
+		
+		// console.log(gameAccount);
+		
 		var token = new this.metaMask.eth.Contract(erc20_abi, this.tokenAddress);
-		var allowance = new this.BN(await token.methods.allowance(this.userAddress, this.gameAddress).call());
+		var allowance = new this.BN(await token.methods.allowance(this.userAddress, gameAccount).call());
 		
 		var gameParameter = await this.gameData();
 		var unitAmount = new this.BN(gameParameter.unitAmount);
@@ -62,6 +103,7 @@ window.game = {
 			allowanceAmount:allowance, 
 			unitAmount:unitAmount
 		};
+		
 	},
 	async balance(walletAddress) {
 		var token = new this.metaMask.eth.Contract(erc20_abi, this.tokenAddress);
@@ -102,5 +144,14 @@ window.game = {
 		gameParameter.winnerHistory = await lastking.methods.getWinnerHistory().call();
 		
 		return gameParameter;
-	}
+	},
+	async gameAccount() {
+		var lastking = new this.metaMask.eth.Contract(lastking_abi, this.gameAddress);
+		var gameAccount = await lastking.methods.gameAccounts(this.userAddress).call();
+		return gameAccount;
+	},
+	// async isSign() {
+	// 	var gameAccount = await gameAccount();
+	// 	return gameAccount != "0x0000000000000000000000000000000000000000";
+	// }
 }

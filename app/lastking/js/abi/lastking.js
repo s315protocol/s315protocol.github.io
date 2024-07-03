@@ -61,6 +61,38 @@ var lastking_abi = [
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "gameAccounts",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "gamePool",
+				"outputs": [
+					{
+						"internalType": "contract GamePool",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "getDelayBlockNumber",
 				"outputs": [
@@ -337,6 +369,13 @@ var lastking_abi = [
 					}
 				],
 				"name": "setUnitAmount",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "sign",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"

@@ -53,6 +53,21 @@
 						This is a new attempt to bring users a truly fair and just gaming experience, allowing users to enjoy fair and just entertainment while also getting high returns
 					</div>
 					<div id="startBtn" class="button startBtn">START GAME</div>
+					
+					<div id="rule-btn" class="rule-btn">INSTRUCTIONS</div>
+					
+				</div>
+			</div>
+			
+			<div class="rule-box">
+				<div class="content">
+					<div class="title">Game Instructions</div>
+					<div class="describe">
+						<p>All players compete for the crown through betting, and the player who bets last temporarily gains the crown, starting the countdown. If there are no new players competing during this period. The player will successfully inherit the throne and obtain the king's treasure. If a new player participates in the competition, the countdown will be refreshed and reset again.</p>
+						<p>The countdown will be halved as the game progresses, with a starting time of 24 hours (after 24 hours, the countdown will be 12 hours, and so on). After the countdown is halved to 1 minute, it will no longer be halved.</p>
+						<p>The King's Treasure is  rewards 50% of the tokens in the prize pool, with the remaining 50% entering the next round of the prize pool.</p>
+					</div>
+					<div class="back-btn">BACK</div>
 				</div>
 			</div>
 			
@@ -65,20 +80,24 @@
 								<div class="label">Prize Pool Amount</div>
 								<div class="value">-</div>
 							</div>
-							<div class="item userAddress">
-								<div class="label">User Address</div>
+							<div class="item gameAddress">
+								<div class="label">Game Contract</div>
 								<div class="value">-</div>
 							</div>
-							<div class="item gameAddress">
-								<div class="label">Contract Address</div>
+							<div class="item userAddress">
+								<div class="label">User Wallet</div>
+								<div class="value">-</div>
+							</div>
+							<div class="item gameAccount">
+								<div class="label">Game Account</div>
 								<div class="value">-</div>
 							</div>
 							<div class="item winningUser">
-								<div class="label">Winning user</div>
+								<div class="label">Current King<img class="icon" src="img/king.png"/></div>
 								<div class="value">-</div>
 							</div>
 							<div class="item winningBlock">
-								<div class="label">Winning Block</div>
+								<div class="label">Conferred Block</div>
 								<div class="value">-</div>
 							</div>
 							<div class="item time">
@@ -86,7 +105,10 @@
 								<div class="value">-</div>
 							</div>
 						</div>
-						<div class="button-box">
+						<div class="button-box sign-box" style="display: none;">
+							<div id="signBtn" class="sign-btn">SIGN</div>
+						</div>
+						<div class="button-box send-box">
 							<div id="sendBtn" class="send-btn">🚀 <span class="unitAmount">10 S315</span></div>
 							<div id="approveBtn" class="approve-btn">APPROVE</div>
 						</div>

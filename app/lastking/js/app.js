@@ -1,4 +1,11 @@
 $(document).ready(()=>{
+	
+	$("#rule-btn").click(()=>{
+		$(".rule-box").fadeIn(500);
+	});
+	$(".rule-box .back-btn").click(()=>{
+		$(".rule-box").fadeOut(500);
+	});
 			
 	$("#startBtn").click(()=>{
 		$("body").loading({message:"CONNECT...",zIndex:999})
@@ -9,14 +16,30 @@ $(document).ready(()=>{
 					position: 'top-center',
 					stack: false
 				});
+			} else if(game.chainId != 56 && game.chainId != 97) {
+				$.toast({
+					text: '[ERROR] Please select BSC network',
+					position: 'top-center',
+					stack: false
+				});
 			} else {
 				
-				var allowance = await game.allowance();
-				
-				if(allowance.unitAmount.gt(allowance.allowanceAmount)) {
-					$(".send-btn").addClass("disable-btn");
+				var gameAccount = await game.gameAccount();
+				if(gameAccount == "0x0000000000000000000000000000000000000000") {
+					$(".sign-box").show();
+					$(".send-box").hide();
 				} else {
-					$(".approve-btn").addClass("disable-btn");
+					$(".sign-box").hide();
+					$(".send-box").show();
+					
+					$(".gameAccount .value").html(gameAccount);
+					
+					var allowance = await game.allowance();
+					if(allowance.unitAmount.gt(allowance.allowanceAmount)) {
+						$(".send-btn").addClass("disable-btn");
+					} else {
+						$(".approve-btn").addClass("disable-btn");
+					}
 				}
 				
 				var syncGame = async () => {
@@ -29,6 +52,11 @@ $(document).ready(()=>{
 					$(".winningBlock .value").html(gameData.winningBlockNumber);
 					var time = gameData.winningBlockNumber < gameData.currentNumber ? 0 : (gameData.winningBlockNumber - gameData.currentNumber + 1) * 3;
 					$(".time .value").html(time+" s");
+					
+					if(gameData.status == false) {
+						$(".send-btn").addClass("disable-btn");
+						$(".approve-btn").addClass("disable-btn");
+					}
 					
 					clearInterval(window.countdown);
 					window.countdown = setInterval(() => {
@@ -60,32 +88,40 @@ $(document).ready(()=>{
 		});
 	});
 	
-	$(".send-btn").click(()=>{
+	$(".sign-btn").click(()=>{
 		
-		if($(".send-btn").hasClass("disable-btn")) {
+		if($(".sign-btn").hasClass("disable-btn")) {
 			return;
 		}
 		
 		$("body").loading({message:"SENDING...",zIndex:999})
 		
-		window.game.send().on('transactionHash', function(hash) {
-			
-		}).on('receipt', function(receipt) {
-			$.toast({
-				text: '[SUCCESS] TransactionHash ' + receipt.transactionHash,
-				position: 'top-center',
-				stack: false
-			});
-			$("body").loading("stop");
-		}).catch(function(err) {
-			$.toast({
-				text: "[ERROR] " + err.message,
-				position: 'top-center',
-				stack: false
-			});
-			$("body").loading("stop");
-		});
-		
+		window.game.sign(async function(receipt) {
+				var gameAccount = await game.gameAccount();
+				$(".gameAccount .value").html(gameAccount);
+				$(".sign-box").hide();
+				$(".send-box").show();
+				
+				$(".send-btn").addClass("disable-btn");
+				$(".approve-btn").removeClass("disable-btn");
+				
+				$.toast({
+					text: '[SUCCESS] TransactionHash ' + receipt.transactionHash,
+					position: 'top-center',
+					stack: false
+				});
+				$("body").loading("stop");
+				
+			},
+			function(err) {
+				$.toast({
+					text: "[ERROR] " + err.message,
+					position: 'top-center',
+					stack: false
+				});
+				$("body").loading("stop");
+			}
+		);
 	});
 	
 	$(".approve-btn").click(()=>{
@@ -96,27 +132,54 @@ $(document).ready(()=>{
 		
 		$("body").loading({message:"SENDING...",zIndex:999})
 		
-		window.game.approve().on('transactionHash', function(hash) {
-			
-		}).on('receipt', function(receipt) {
-			$.toast({
-				text: '[SUCCESS] TransactionHash ' + receipt.transactionHash,
-				position: 'top-center',
-				stack: false
-			});
-			$("body").loading("stop");
-			
-			$(".send-btn").removeClass("disable-btn");
-			$(".approve-btn").addClass("disable-btn");
-			
-		}).catch(function(err) {
-			$.toast({
-				text: "[ERROR] " + err.message,
-				position: 'top-center',
-				stack: false
-			});
-			$("body").loading("stop");
-		});
+		window.game.approve(function(receipt) {
+				$.toast({
+					text: '[SUCCESS] TransactionHash ' + receipt.transactionHash,
+					position: 'top-center',
+					stack: false
+				});
+				$("body").loading("stop");
+				
+				$(".send-btn").removeClass("disable-btn");
+				$(".approve-btn").addClass("disable-btn");
+			},
+			function(err) {
+				$.toast({
+					text: "[ERROR] " + err.message,
+					position: 'top-center',
+					stack: false
+				});
+				$("body").loading("stop");
+			}
+		);
+		
+	});
+	
+	$(".send-btn").click(async ()=>{
+		
+		if($(".send-btn").hasClass("disable-btn")) {
+			return;
+		}
+		
+		$("body").loading({message:"SENDING...",zIndex:999})
+		
+		await window.game.send(function(receipt) {
+				$.toast({
+					text: '[SUCCESS] TransactionHash ' + receipt.transactionHash,
+					position: 'top-center',
+					stack: false
+				});
+				$("body").loading("stop");
+			},
+			function(err) {
+				$.toast({
+					text: "[ERROR] " + err.message,
+					position: 'top-center',
+					stack: false
+				});
+				$("body").loading("stop");
+			}
+		);
 		
 	});
 
