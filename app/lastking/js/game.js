@@ -6,7 +6,7 @@ window.game = {
 	userAddress:false,
 	tokenAddress:"0x565D40e2ef60f0B4e5bD0136Bb2C58ACe83fDaA5",
 	tokenDecimals:18,
-	gameAddress:"0xBD6953119cD9e945b7942eCD73104dEE615BD251",
+	gameAddress:"0x5508140BfB8feD9Fc63C5aE6F756FfDEaE18ad82",
 	currentBlock:0,
 	connect(callback) {
 		
