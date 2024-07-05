@@ -170,6 +170,22 @@ $(document).ready(()=>{
 					stack: false
 				});
 				$("body").loading("stop");
+				
+				$(".send-btn").addClass("disable-btn");
+				var text = $(".send-btn").html();
+				var time = 30;
+				$(".send-btn").html(time+" s");
+				var sendTimer = setInterval(() => {
+					time = time-1;
+					if(time > 0) {
+						$(".send-btn").html(time+" s");
+					} else {
+						$(".send-btn").removeClass("disable-btn");
+						$(".send-btn").html(text);
+						clearInterval(sendTimer);
+					}
+				}, 1000);
+				
 			},
 			function(err) {
 				$.toast({
