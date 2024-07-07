@@ -42,8 +42,11 @@ $(document).ready(()=>{
 					}
 				}
 				
+				var currentNumber = 0;
 				var syncGame = async () => {
+					
 					var gameData = await game.gameData();
+					
 					$(".unitAmount").html(utils.number_format(utils.precision(utils.z(gameData.unitAmount, game.tokenDecimals), 0), 0) + " S315");
 					$(".amount .value").html(utils.number_format(utils.precision(utils.z(gameData.balanceAmount, game.tokenDecimals), 0), 0) + " S315");
 					$(".userAddress .value").html(game.userAddress);
@@ -51,20 +54,25 @@ $(document).ready(()=>{
 					$(".winningUser .value").html(gameData.winningUser);
 					$(".winningBlock .value").html(gameData.winningBlockNumber);
 					var time = gameData.winningBlockNumber < gameData.currentNumber ? 0 : (gameData.winningBlockNumber - gameData.currentNumber + 1) * 3;
-					$(".time .value").html(time+" s");
 					
 					if(gameData.status == false) {
 						$(".send-btn").addClass("disable-btn");
 						$(".approve-btn").addClass("disable-btn");
 					}
 					
-					clearInterval(window.countdown);
-					window.countdown = setInterval(() => {
-						if(time > 0) {
-							time = time-1;
-						}
-						$(".time .value").html(time+" s");
-					}, 1000);
+					if(gameData.currentNumber > currentNumber) {
+						currentNumber = gameData.currentNumber;
+						
+						$(".time .value").html((time)+" s");
+						
+						clearInterval(window.countdown);
+						window.countdown = setInterval(() => {
+							if(time > 0) {
+								time = time-1;
+							}
+							$(".time .value").html(time+" s");
+						}, 1000);
+					}
 					
 					$(".order-box .list").html("");
 					gameData.orderHistory.map(function(item) {
@@ -77,11 +85,11 @@ $(document).ready(()=>{
 						if(item.blockNumber == 0) {return;}
 						$(".winner-box .list").append('<div class="row"><div class="item user">{0}</div><div class="item block">{1}</div><div class="item amount">{2} S315</div></div>'.format(utils.encode_address(item.user, 6, 4), item.blockNumber, utils.number_format(utils.precision(utils.z(item.amount, game.tokenDecimals), 0), 0)));
 					});
+					
 				}
 				
 				await syncGame();
-				setInterval(syncGame, 3000);
-				
+				setInterval(syncGame, 1000);
 				$(".gamebox").fadeIn(500);
 			}
 			$("body").loading("stop");
