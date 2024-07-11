@@ -53,7 +53,7 @@ $(document).ready(()=>{
 					$(".gameAddress .value").html(game.gameAddress);
 					$(".winningUser .value").html(gameData.winningUser);
 					$(".winningBlock .value").html(gameData.winningBlockNumber);
-					var time = gameData.winningBlockNumber < gameData.currentNumber ? 0 : (gameData.winningBlockNumber - gameData.currentNumber + 1) * 3;
+					var time = gameData.winningBlockNumber < gameData.currentNumber ? 0 : (gameData.winningBlockNumber - gameData.currentNumber) * 3;
 					
 					if(gameData.status == false) {
 						$(".send-btn").addClass("disable-btn");
