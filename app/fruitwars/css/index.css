@@ -247,7 +247,9 @@ a {color: #ffffff; text-decoration: none;}
 	font-size: 25px;
 }
 .gamebox .content .left-box .fruitBox .fruit-item.active {
-	border: 1px solid #f06116;
+	/* border: 1px solid #f06116; */
+	border: 1px solid #f0ca16;
+	background: #f0ca16;
 }
 .gamebox .content .left-box .fruitAmount {display: flex;    flex-wrap: wrap;}
 .gamebox .content .left-box .fruitAmount .amount-item {
@@ -265,7 +267,9 @@ a {color: #ffffff; text-decoration: none;}
 	font-size: 25px;
 }
 .gamebox .content .left-box .fruitAmount .amount-item.active {
-	border: 1px solid #f06116;
+	/* border: 1px solid #f06116; */
+	border: 1px solid #f0ca16;
+	background: #f0ca16;
 }
 
 .gamebox .content .left-box .button-box {display: flex; flex-wrap: wrap;}
