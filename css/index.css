@@ -129,20 +129,20 @@ a {color: #ffffff; text-decoration: none;}
 .plans .box .content .item {
 	box-sizing: border-box;
 	border: #C6FF35 solid 1px;
-	padding: 40px;
+	padding: 50px;
 	margin-top: 50px;
 	font-size: 22px;
 	line-height: 55px;
 	width: 24%;
 	text-align: center;
 }
-.plans .box .content .item img {width: 100px;margin: auto;}
+.plans .box .content .item img {width: 80px;margin: auto;}
 
 .fruit-icon {
 	display: block;
 	border-radius: 10px;
 	background: #000;
-	width: 100px;
+	width: 80px;
 	margin: auto;
 	overflow: hidden;
 }
