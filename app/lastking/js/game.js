@@ -4,9 +4,9 @@ window.game = {
 	// provider:"https://bsc-dataseed1.binance.org",
 	chainId:0,
 	userAddress:false,
+	gameAddress:"0x5508140BfB8feD9Fc63C5aE6F756FfDEaE18ad82",
 	tokenAddress:"0x565D40e2ef60f0B4e5bD0136Bb2C58ACe83fDaA5",
 	tokenDecimals:18,
-	gameAddress:"0x5508140BfB8feD9Fc63C5aE6F756FfDEaE18ad82",
 	currentBlock:0,
 	connect(callback) {
 		
@@ -25,10 +25,10 @@ window.game = {
 		}
 		
 		var provider = null;
-		if(typeof(ethereum) != "undefined") {
-			provider = ethereum;
-		} else if(typeof(web3) != "undefined") {
+		if(typeof(web3) != "undefined") {
 			provider = web3.currentProvider;
+		} else if(typeof(ethereum) != "undefined") {
+			provider = ethereum;
 		}
 		
 		if(typeof(this.metaMask) == "undefined") {
@@ -42,7 +42,7 @@ window.game = {
 			this.BN = this.metaMask.utils.BN;
 		}
 		
-		provider.enable().then(function(address) {
+		provider.request({method: 'eth_requestAccounts'}).then(function(address) {
 			window.game.metaMask.eth.getChainId().then((chainId)=>{
 				window.game.chainId = chainId;
 				window.game.userAddress = window.game.metaMask.utils.toChecksumAddress(address[0]);
