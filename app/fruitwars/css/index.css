@@ -160,8 +160,8 @@ a {color: #ffffff; text-decoration: none;}
 
 .rule-box .content {
 	position: absolute;
-	top: 80px;
-	bottom: 80px;
+	top: 50px;
+	bottom: 50px;
 	left: 15%;
 	right: 15%;
 	box-sizing: border-box;
