@@ -192,7 +192,7 @@ a {color: #ffffff; text-decoration: none;}
 }
 
 .gamebox {
-	position: absolute;
+	position: fixed;
 	left: 0;
 	top: 0;
 	right: 0;
@@ -372,11 +372,28 @@ a {color: #ffffff; text-decoration: none;}
 		margin-top: 10px;
 		width: 90%;
 	}
-	
+	.startBtn {
+		margin: 25px auto 25px auto;
+	}
+	.rule-btn {
+		margin-bottom: 20px;
+	}
+	.launch  {
+		overflow: scroll;
+	}
+	.launch .box .introduce {
+	    margin-top: 30px;
+	}
+	.launch .box .time {
+	    margin-top: 30px;
+	}
 }
 
-@media (max-width: 500px) {
+@media (max-width: 800px) {
 	
+	.gamebox {
+		padding:0px;
+	}
 	.gamebox .content .left-box .send-btn {
 		margin-bottom: 0px;
 	}
