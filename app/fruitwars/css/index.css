@@ -145,7 +145,7 @@ a {color: #ffffff; text-decoration: none;}
 	margin: 0 auto;
 }
 .rule-box {
-	position: absolute;
+	position: fixed;
 	left: 0;
 	top: 0;
 	right: 0;
@@ -352,6 +352,9 @@ a {color: #ffffff; text-decoration: none;}
 
 @media (max-width: 800px) {
 	
+	.rule-box  {
+		padding: 0px;
+	}
 	.rule-box .content {
 		top:0px;
 		left:0px;
